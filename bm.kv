@@ -37,6 +37,17 @@ ScreenManager:
         id: adj_el
         text_value: self.parent.text_value
 
+<Display@GridLayout>:
+    text_id: "def text"
+    anim_value: "00:00"
+    rows: 2
+    Label:
+        text: self.parent.text_id
+    Label:
+        id: anim_lab
+        text: self.parent.anim_value
+
+
 <StartScreen>:
     orientation: "vertical"
 
@@ -123,13 +134,35 @@ ScreenManager:
             text: "..."
 
     BoxLayout:
+        orientation: "vertical"
+        size_hint_y: 0.7
+        pos_hint: {"top": 0.9}
+        padding: 5
+        GridLayout:
+            cols: 2
+            rows: 2
+            Display:
+                id: hang
+                text_id: "Hang"
+            Display:
+                id: rest
+                text_id: "Rest"
+            Display:
+                id: pause
+                text_id: "Pause"
+
+            Button:
+                text: "Pause"
+                on_press: app.pause()
+
+    BoxLayout:
         orientation : "horizontal"
         size_hint_y: 0.2
         pos_hint: {"top": 0.2}
         Button:
             text: "Back to menu"
-            on_release: app.root.current = "StartScreen"
+            on_release: app.root.current = "StartScreen"#, app.pause()
         Button:
             text: "Start"
-            on_press: self.text = "Pause" #if self.text == "Start" else self.text = "Start"
-            on_release: pass
+            on_press: app.start()   #self.text = "Pause"
+            #on_release: pass
