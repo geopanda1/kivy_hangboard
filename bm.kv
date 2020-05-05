@@ -9,20 +9,30 @@ ScreenManager:
         name: "TrainScreen"
         manager: "screen_manager"
 
+<RoundButton@Button>:
+    background_color: 1,1,1,0
+    canvas.before:
+        Color:
+            rgba: (1,1,1,.5)
+        Ellipse:
+            pos: self.pos[0] + (self.size[0]/2. - (self.parent.size[1]*0.9)/2), self.pos[1]
+            size: (self.parent.size[1]*0.9, self.parent.size[1]*0.9)
+            #radius: [self.parent.size[1], self.parent.size[1]]
+
 <AdjustElement@BoxLayout>:
     size_hint_y: .5
     text_value: "0"
     orientation: "horizontal"
-    Button:
+    RoundButton:
         text: "-"
-        on_press: self.parent.minus(), app.update_total()
+        on_press: self.parent.minus(), app.update_total()#, print(self.size)
     TextInput:
         id: element_value
         text: self.parent.text_value
         multiline: False
         input_filter: "int"
         on_text_validate: app.update_total()
-    Button:
+    RoundButton:
         text: "+"
         on_press: self.parent.plus(), app.update_total()
 
@@ -100,8 +110,14 @@ ScreenManager:
         orientation: "horizontal"
         size_hint_y: 0.2
         pos_hint: {"top": 0.2}
+        canvas.before:
+            Color:
+                rgba: (0,0,0,0)
         Button:
+            #size: self.parent.size[0]*0.3, self.parent.size[1]*0.3
+            #pos: self.parent.pos[0] + self.parent.size[0]/2 - self.parent.size[0]*0.3, self.parent.pos[1] + self.parent.size[1]/2 - self.parent.size[1]*0.3
             text: "Ready to crimp?"
+            background_color: (1,1,1,0.5)
             on_press: app.root.current = "TrainScreen"
 
 <TrainScreen>:

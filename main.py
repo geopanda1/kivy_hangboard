@@ -14,6 +14,11 @@ from kivy.properties import (
     NumericProperty, ReferenceListProperty, ObjectProperty, StringProperty
 )
 
+class RoundButton(Button):
+
+    def __init__(self, **kwargs):
+        super(RoundButton, self).__init__(**kwargs)
+
 class AdjustElement(BoxLayout):
 
     def __init__(self, **kwargs):
