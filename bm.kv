@@ -1,0 +1,135 @@
+ScreenManager:
+    id: screen_manager
+    StartScreen:
+        id: start_screen
+        name: "StartScreen"
+        manager: "screen_manager"
+    TrainScreen:
+        id: train_screen
+        name: "TrainScreen"
+        manager: "screen_manager"
+
+<AdjustElement@BoxLayout>:
+    size_hint_y: .5
+    text_value: "0"
+    orientation: "horizontal"
+    Button:
+        text: "-"
+        on_press: self.parent.minus(), app.update_total()
+    TextInput:
+        id: element_value
+        text: self.parent.text_value
+        multiline: False
+        input_filter: "int"
+        on_text_validate: app.update_total()
+    Button:
+        text: "+"
+        on_press: self.parent.plus(), app.update_total()
+
+
+<AdjustBar@GridLayout>:
+    text_id: "default text"
+    text_value: "default value"
+    cols: 2
+    Label:
+        text: self.parent.text_id
+    AdjustElement:
+        id: adj_el
+        text_value: self.parent.text_value
+
+<StartScreen>:
+    orientation: "vertical"
+
+    BoxLayout:
+        orientation: "horizontal"
+        pos_hint: {'top': 1}
+        size_hint_y: .1
+        Label:
+            text: "Ultimate Finger Strength"
+            size_hint_x: .3
+            paddng: (5,1)
+            bold: True
+        Label:
+            size_hint_x: .6
+        Label:
+            size_hint_x: .1
+            text: "..."
+    BoxLayout:
+        id: parameters
+        orientation: "vertical"
+        size_hint_y: 0.7
+        pos_hint: {"top": 0.9}
+
+        AdjustBar:
+            id: n_sets
+            text_id: "Sets"
+            text_value: "1"
+        AdjustBar:
+            id: hang_time
+            text_id: "Hang time"
+            text_value: "7"
+        AdjustBar:
+            id: rest_time
+            text_id: "Rest time"
+            text_value: "3"
+        AdjustBar:
+            id: cons_hangs
+            text_id: "Consecutive hangs"
+            text_value: "6"
+        AdjustBar:
+            id: rest_after_hangs
+            text_id: "Rest after hangs"
+            text_value: "60"
+        AdjustBar:
+            id: hang_rounds
+            text_id: "Hang rounds"
+            text_value: "5"
+        AdjustBar:
+            id: rest_after_set
+            text_id: "Rest after each set"
+            text_value: "300"
+        GridLayout:
+            cols: 2
+            Label:
+                text: "Total training time"
+            Label:
+                id: total_time
+                text: "00:00"
+
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: 0.2
+        pos_hint: {"top": 0.2}
+        Button:
+            text: "Ready to crimp?"
+            on_press: app.root.current = "TrainScreen"
+
+<TrainScreen>:
+    orientation: "vertical"
+
+    BoxLayout:
+        orientation: "horizontal"
+        pos_hint: {'top': 1}
+        size_hint_y: .1
+        Label:
+            text: "Ultimate Finger Strength"
+            size_hint_x: .3
+            paddng: (5,1)
+            bold: True
+        Label:
+            size_hint_x: .6
+        Label:
+            size_hint_x: .1
+            text: "..."
+
+    BoxLayout:
+        orientation : "horizontal"
+        size_hint_y: 0.2
+        pos_hint: {"top": 0.2}
+        Button:
+            text: "Back to menu"
+            on_release: app.root.current = "StartScreen"
+        Button:
+            text: "Start"
+            on_press: self.text = "Pause" #if self.text == "Start" else self.text = "Start"
+            on_release: pass
