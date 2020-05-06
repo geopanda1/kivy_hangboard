@@ -108,20 +108,21 @@ class BMApp(App):
             for hang_round in list(range(int(self.root.ids.start_screen.ids.hang_rounds.ids.adj_el.ids.element_value.text))):
                 for chang in list(range(int(self.root.ids.start_screen.ids.cons_hangs.ids.adj_el.ids.element_value.text))):
                     self.tmp_count = self.hang
-                    #Clock.unschedule(self.countdown_hang)
-                    Clock.schedule_interval(self.wait, 1)
+                    Clock.unschedule(self.countdown_hang)
+                    Clock.schedule_interval(self.countdown_hang, 1)
 
                     self.tmp_count = self.rest
-                    #Clock.unschedule(self.countdown_rest)
+                    #
                     Clock.schedule_interval(self.countdown_rest, 1)
-
+                    Clock.unschedule(self.countdown_rest)
                 self.tmp_count = self.rest_after_hangs
-                #Clock.unschedule(self.countdown_pause)
+                #
                 Clock.schedule_interval(self.countdown_pause, 1)
-
+                Clock.unschedule(self.countdown_pause)
             self.tmp_count = self.rest_after_sets
-            Clock.unschedule(self.countdown_pause)
+
             Clock.schedule_interval(self.countdown_pause, 1)
+            Clock.unschedule(self.countdown_pause)
 
 if __name__ == '__main__':
     BMApp().run()
